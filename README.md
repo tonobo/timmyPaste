@@ -9,5 +9,6 @@ Requirements
 * sqlite3
 * pygments
 * flask
+* hamlish_jinja
 
 

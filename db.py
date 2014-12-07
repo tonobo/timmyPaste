@@ -28,12 +28,12 @@ class Database:
 			DELETE FROM code WHERE id = ?''', (id,))
 		self.__db.commit()
 	
-	def find(self,id):
+	def find(self,key):
 		cursor = self.__db.cursor()
 		cursor.execute('''
 			SELECT * 
 				FROM code
-				WHERE id = ?
+				WHERE key = ?
 			''', (id,))
 		return cursor.fetchone()
 	

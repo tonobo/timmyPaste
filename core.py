@@ -34,9 +34,9 @@ class Code:
 		return db.add(code, keylen)
 
 	@classmethod
-	def find(self,id):
+	def find(self,key):
 		db = Database()
-		code = db.find(id)
+		code = db.find(key)
 		if code:
 			return Code(code)
 		raise CodeNotFound('Code element not found.')
