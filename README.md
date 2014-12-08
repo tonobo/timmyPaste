@@ -4,6 +4,8 @@ timmySyntax
 It representes only a poor pastbin clone.
 Written in Python(3)-Flask with an SQLite backend.
 
+![Paste](screenshot.png)
+
 Requirements
 ------------
 
