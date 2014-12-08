@@ -1,0 +1,19 @@
+{% haml %}
+
+-extends "layout.haml"
+
+-block main:
+  %div.container
+    %label for="key"
+      Schlüssel: 
+    %input.form-control type="text" value="{{ key }}" name="key"
+    %hr
+    {% if raw %}
+      %pre
+        |{{ code }}
+    {% else %}
+        {{ code }}
+    {% endif %}
+
+
+{% endhaml %}

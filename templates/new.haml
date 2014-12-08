@@ -1,0 +1,15 @@
+{% haml %}
+
+-extends "layout.haml"
+
+-block main:
+  %h1 style="text-align: center"
+    Enter your code
+  %hr
+  %div.container
+    %form method="POST" action="/create"
+      %textarea.form-control oninput="textAreaAdjust(this)" style="overflow:hidden" name="code"
+      %hr
+      %input.btn.btn-block.btn-default type="submit"
+    
+{% endhaml %}
