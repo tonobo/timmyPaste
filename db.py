@@ -34,7 +34,7 @@ class Database:
 			SELECT * 
 				FROM code
 				WHERE key = ?
-			''', (id,))
+			''', (key,))
 		return cursor.fetchone()
 	
 	def all(self):
@@ -52,7 +52,7 @@ class Database:
 				id 		INTEGER PRIMARY KEY AUTOINCREMENT,
 				date 	TEXT NOT NULL,
 				code	TEXT NOT NULL,
-				key 	TEXT NOT NULL 
+				key 	TEXT NOT NULL UNIQUE 
 			)''')
 		self.__db.commit()
 

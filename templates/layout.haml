@@ -2,10 +2,11 @@
 %html
 	%head
 		%link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"
+		%link href="/static/style.css" rel="stylesheet"
 		%title
 			TimmySyntax
 	%body
-		%nav.navbar.navbar-default.navbar-inverse
+		%nav.navbar.navbar-default.navbar-inverse.navbar-static-top
 			%div.container-fluid
 				%div.navbar-header
 					%button.navbar-toggle.collapsed data-toggle="collapse" data-taget="#navbar"
@@ -17,11 +18,22 @@
 					%a.navbar-brand href="/" 
 						TimmySyntax
 				%div#navbar.navbar-collapse.collapse
-					%ul.nav.navbar-nav
-						%li
-							Test1
+					%a.btn.btn-default.pull-right href="/new" style="margin-top: 10px"
+							New
+
+    {% if flash %} 
+    %div.container
+      %div.alert.alert-danger
+        {{ flash }}
+    {% endif %}
 
 		%div.main -> -block main
-		%script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" type="text/javascript"
-
 {% endhaml %}
+      
+      
+  <script>
+    function textAreaAdjust(o) {
+      o.style.height = "1px";
+        o.style.height = (25+o.scrollHeight)+"px";
+      }
+      </script>
