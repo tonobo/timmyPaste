@@ -1,4 +1,4 @@
-from db import Database
+from lib.db import Database
 from pygments import highlight
 from pygments.lexers import (get_lexer_for_filename,)
 from pygments.formatters import HtmlFormatter

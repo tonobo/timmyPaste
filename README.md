@@ -12,7 +12,7 @@ Requirements
 * sqlite3
 * pygments
 * flask
-* gunicorn
+* flask-restful
 * hamlish_jinja
 
 Setup
