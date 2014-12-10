@@ -1,7 +1,5 @@
 
-from flask import Response, jsonify, render_template, url_for, request, redirect
-from flask.ext.restful import Resource
-from lib.core import Database
+from controller.base import *
 
 class CodeAPI(Resource):
     def get(self):

@@ -1,21 +1,26 @@
 
-from flask import Response, jsonify, render_template, url_for, request, redirect
-from flask.views import MethodView
-from lib.core import Code, Database
+from controller.base import *
 
 class UI(MethodView):
 
-    def get(self, key):
-        if key:
-            return self.__show(key)
-        return render_template('index.haml')
+    def get(self, key=None):
+        try: 
+            flash=None
+            if key == 'new':
+                return render_template('new.haml')
+            elif key:
+                return self.__show(key)
+        except CodeNotFound:
+            flash="Couldn't find syntax element. Redirect back!"
+        return render_template('index.haml', flash=flash)
     
-    def create(self):
-      return redirect(url_for('get', 
-                  key=Code.new(request.form.get('code'))))
-
-    def new(self):
-        return render_template('new.haml')
+    def post(self):
+        try:
+            return redirect('/'+Code.new(request.form.get('code')))
+        except:
+            return render_template('new.haml', flash="""
+                Error while creating
+                syntax code stuff. Please retry.""")
 
     def __show(self, key):
       keylist=key.split('.')
