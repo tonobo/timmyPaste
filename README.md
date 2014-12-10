@@ -29,7 +29,7 @@ Structure
   Create new paste.
 ```
 
-### route: /<key>[.suffix]
+### route: /..key..[.suffix]
 ```
   Show paste if key is given.
   [.suffix defines the filename, which should be highlighted]
@@ -39,7 +39,7 @@ Structure
 
 ```
 
-### route: /<key>/raw
+### route: /..key../raw
 ```
   Show paste if key is given in raw formate.
   Mime-Type: text/plain
