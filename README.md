@@ -16,6 +16,41 @@ Requirements
 * flask-classy
 * hamlish_jinja
 
+Structure
+---------
+
+### route: /
+```
+  Show index page.
+```
+
+### route: /new
+```
+  Create new paste.
+```
+
+### route: /<key>[.suffix]
+```
+  Show paste if key is given.
+  [.suffix defines the filename, which should be highlighted]
+  Sample: 
+    hdauoqqfb.py => Python
+    hdauoqqfb.rb => Ruby
+
+```
+
+### route: /<key>/raw
+```
+  Show paste if key is given in raw formate.
+  Mime-Type: text/plain
+```
+
+### route: /api/
+```
+  This is only an experimental call. 
+  It returns an all pastes, formatted as json.
+```
+
 Setup
 ----------
 
