@@ -13,21 +13,25 @@ Requirements
 * pygments
 * flask
 * flask-restful
+* flask-classy
 * hamlish_jinja
 
 Setup
 ----------
 
-You could start them with gunicorn
+You could start them with gunicorn.
+There is also an systemd service / socket file shipped.
+You only need to replace your WorkingDir and username. 
+It will start an GUnicorn on local:9000 or ::8000.
 
 ```bash
-gunicorn base:app -w 1 -b 0.0.0.0:5000
+gunicorn app:app -w 1 -b 0.0.0.0:5000
 ```
 
 or easier for development.
 
 ```bash
-python base.py
+python app.py
 ```
 
 

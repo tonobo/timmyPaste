@@ -1,7 +1,10 @@
 
 from controller.base import *
 
-class UI(MethodView):
+class UI(FlaskView):
+
+    def index(self):
+        return render_template('index.haml')
 
     def get(self, key=None):
         try: 
@@ -12,7 +15,11 @@ class UI(MethodView):
                 return self.__show(key)
         except CodeNotFound:
             flash="Couldn't find syntax element. Redirect back!"
-        return render_template('index.haml', flash=flash)
+        return render_template('new.haml', flash=flash)
+
+    @route('/<key>/raw')
+    def raw(self, key):
+        return Response(Code.find(key).code, mimetype="text/plain")
     
     def post(self):
         try:

@@ -11,11 +11,8 @@ app = Flask(__name__)
 app.debug = True
 app.jinja_env.add_extension(HamlishTagExtension)
 
-rest = Api(app)
-rest.add_resource(CodeAPI, '/api/')
-ui = UI.as_view('ui')
-app.add_url_rule('/', view_func=ui)
-app.add_url_rule('/<string:key>', view_func=ui)
+Api(app).add_resource(CodeAPI, '/api/')
+UI.register(app, route_base='/')
 
 
 if __name__ == '__main__':
