@@ -8,6 +8,18 @@
   %hr
   %div.container
     %form method="POST" action="/"
+      %div.container
+        %div.col-md-6
+          %div.input-group
+            %span.input-group-addon
+              %input type="radio" name="hide" value="false"
+            %input.disabled.form-control type="text" readonly="" value="Private"
+        %div.col-md-6
+          %div.input-group
+            %span.input-group-addon
+              %input type="radio" name="hide" value="true" checked=""
+            %input.disabled.form-control type="text" readonly="" value="Public"
+      %hr
       %textarea.form-control oninput="textAreaAdjust(this)" style="overflow:hidden" name="code"
       %hr
       %input.btn.btn-block.btn-default type="submit"

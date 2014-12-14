@@ -16,6 +16,17 @@ Requirements
 * flask-classy
 * hamlish_jinja
 
+**Note**
+
+Before you are able to use it, you need to create the Database.
+You only need to open a python shell an type the following:
+
+```python
+  import lib.db
+  lib.db.Database().create()
+```
+
+
 Structure
 ---------
 

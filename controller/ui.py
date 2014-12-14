@@ -23,7 +23,8 @@ class UI(FlaskView):
     
     def post(self):
         try:
-            return redirect('/'+Code.new(request.form.get('code')))
+            hide = (True,False)[bool(request.form.get('hide') == 'true')]
+            return redirect('/'+Code.new(request.form.get('code'), hide))
         except:
             return render_template('new.haml', flash="""
                 Error while creating
