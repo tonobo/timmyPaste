@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# PROVIDE: gunicorn
+# REQUIRE: LOGIN cleanvar
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=gunicorn
+rcvar=gunicorn_enable
+
+command="/usr/local/bin/${name}"
+
+sig_reload="HUP"
+
+extra_commands="reload"
+
+load_rc_config $name
+
+: ${gunicorn_user:="www"}
+: ${gunicorn_group:="www"}
+: ${gunicorn_worker:="5"}
+: ${gunicorn_path:="/usr/local/www/timmyPaste"}
+: ${gunicorn_listen:="0.0.0.0:8000"}
+
+pidfile="/tmp/${name}.pid"
+
+command_args="-D --pid ${pidfile} --user ${gunicorn_user} --group ${gunicorn_group} --chdir ${gunicorn_path} --bind ${gunicorn_listen} ${gunicorn_flags}  app:app "
+
+run_rc_command "$1"
+
