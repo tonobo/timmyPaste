@@ -1,10 +1,27 @@
-timmySyntax
+timmyPaste
 ===========
 
 It representes only a poor pastbin clone.
 Written in Python(3)-Flask with an SQLite backend.
 
 ![Paste](screenshot.png)
+
+Features
+--------
+
+* Simple deployment.
+* Lightweight.
+* Realtime syntax highlighting based on prefix.
+* Private and public posts.
+
+#####################
+# ** Coming soon ** #
+#####################
+
+* *Full restfull api implementation*
+* *Image upload*
+* *URL truncation*
+* *Expire of pastes*
 
 Requirements
 ------------
