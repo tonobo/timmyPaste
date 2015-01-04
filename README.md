@@ -14,7 +14,7 @@ Features
 * Realtime syntax highlighting based on prefix.
 * Private and public posts.
 
-** Coming soon **
+**Coming soon**
 
 * *Full restfull api implementation*
 * *Image upload*
