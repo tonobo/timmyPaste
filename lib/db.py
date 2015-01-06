@@ -11,12 +11,15 @@ class Database:
         def add(self,code,is_private,keylen,date=datetime.datetime.now()):
                 cursor = self.__db.cursor()
                 key = "".join([random.choice(string.ascii_letters[:26]) for i in range(keylen)])
-                cursor.execute('''
-                        INSERT INTO code(code,date,key,private) VALUES (?,?,?,?)''',
-                        (code, date,key,int(is_private)))
-                self.__db.commit()
-                return key
-
+                for i in range(0, 100):
+                    try:
+                        cursor.execute('''
+                            INSERT INTO code(code,date,key,private) VALUES (?,?,?,?)''',
+                            (code, date,key,int(is_private)))
+                        self.__db.commit()
+                        return key
+                    except:
+                        continue
 
         def delete(self,id):
                 cursor = self.__db.cursor()
