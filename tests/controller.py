@@ -6,7 +6,7 @@ class ControllerTest(BaseTest):
     
     def test_index(self):
         a = self.app.get('/')
-        assert b'TimmySyntax' in a.data
+        assert '200 OK' == a.status
 
     def test_new(self):
         a = self.app.get('/new')

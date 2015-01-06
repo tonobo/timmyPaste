@@ -1,10 +1,10 @@
 
 from controller.base import *
 
-class UI(FlaskView):
+class UI(FlaskView,BaseController):
 
     def index(self):
-        return render_template('index.haml')
+        return render_template('index.haml', conf=self.config())
 
     def get(self, key=None):
         try: 

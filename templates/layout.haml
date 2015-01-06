@@ -4,7 +4,7 @@
 		%link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"
 		%link href="/static/style.css" rel="stylesheet"
 		%title
-			TimmySyntax
+      {{ title() }}
 	%body
 		%nav.navbar.navbar-default.navbar-inverse.navbar-static-top
 			%div.container-fluid
@@ -16,10 +16,10 @@
 						%span.icon.bar
 						%span.icon.bar
 					%a.navbar-brand href="/" 
-						TimmySyntax
+            {{ title() }}
 				%div#navbar.navbar-collapse.collapse
 					%a.btn.btn-default.pull-right href="/new" style="margin-top: 10px"
-							New
+						New paste
 
     {% if flash %} 
     %div.container
