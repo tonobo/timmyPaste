@@ -125,7 +125,7 @@ Sample:
 ```json
   {
     "data": "moo",
-    "is_private": true,
+    "is_private": true
   }
 ```
 
