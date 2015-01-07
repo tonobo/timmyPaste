@@ -50,8 +50,8 @@ If it failes, please take a look at: https://github.com/mitsuhiko/flask-babel/is
   pybabel compile -d translations
 ```
 
-Structure
----------
+UI Reference
+------------
 
 ### route: /
 ```
@@ -79,10 +79,65 @@ Structure
   Mime-Type: text/plain
 ```
 
-### route: /api/
+API Reference
+-------------
+
+### GET: /api/
 ```
-  This is only an experimental call. 
-  It returns an all pastes, formatted as json.
+  Returns all public pastes.
+```
+
+### GET: /api/..key..
+```
+  Return the paste if it could be found.
+```
+
+Sample:
+
+```json
+  {
+    "code": "moo",
+    "date": "2015-01-07 23:42:31.275959",
+    "is_private": true,
+    "key": "xbvfwwaxxfxwqetxvmqjaoqyaxtlaalxlmwhegvpnearcjqcgr"
+  }
+```
+
+If key couldn't be found.
+
+```json
+  {
+    "requested_key": "ecctxqecjra",
+    "status": 404,
+    "message": "Cound not found such key."
+  }
+```
+### POST: /api/
+```
+  Requested JSON fromatted data.
+  Please check that your 'Content-Type' is set to 'application/json'.
+
+  Returns the paste created paste.
+```
+
+Sample:
+
+```json
+  {
+    "data": "moo",
+    "is_private": true,
+  }
+```
+
+Result: 
+
+```json
+  {
+    "code": "moo",
+    "date": "2015-01-07 23:42:31.275959",
+    "is_private": true,
+    "key": "xbvfwwaxxfxwqetxvmqjaoqyaxtlaalxlmwhegvpnearcjqcgr"
+  }
 ```
 
 Setup
