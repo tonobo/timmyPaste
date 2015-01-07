@@ -4,6 +4,7 @@ from flask.ext.restful import Resource
 from flask.ext.classy import FlaskView, route
 from lib.core import Code, Database, CodeNotFound
 from lib.config import Config
+import json
 
 class BaseController:
     

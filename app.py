@@ -1,6 +1,7 @@
 from flask import Flask, Response, jsonify, render_template, url_for, request, redirect
 from flask.views import MethodView
 from flask.ext.restful import Api
+from flask.ext.babel import Babel
 from hamlish_jinja import HamlishTagExtension
 
 from lib.core import Code, Database
@@ -12,16 +13,18 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 app.debug = True
 app.jinja_env.add_extension(HamlishTagExtension)
+babel = Babel(app)
 
-def title():
-    a = Config()
-    a.parse()
-    return a.app_title
+conf = Config()
+conf.parse()
 
-app.jinja_env.globals.update(title=title)
+app.config['BABEL_DEFAULT_LOCALE'] = conf.app_locale
 
+Api(app).add_resource(
+        CodeAPI, 
+        '/api/',
+        '/api/<key>')
 
-Api(app).add_resource(CodeAPI, '/api/')
 UI.register(app, route_base='/')
 
 

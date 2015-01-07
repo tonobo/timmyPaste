@@ -35,7 +35,8 @@ class Database:
                                 WHERE key = ?
                         ''', (key,))
                 a = cursor.fetchone()
-                return a[:-1]+(bool(a[-1]),)
+                if a:
+                    return a[:-1]+(bool(a[-1]),)
         
         def all(self, private):
                 cursor = self.__db.cursor()

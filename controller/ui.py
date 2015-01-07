@@ -4,7 +4,7 @@ from controller.base import *
 class UI(FlaskView,BaseController):
 
     def index(self):
-        return render_template('index.haml', conf=self.config())
+        return render_template('index.haml')
 
     def get(self, key=None):
         try: 
@@ -14,7 +14,7 @@ class UI(FlaskView,BaseController):
             elif key:
                 return self.__show(key)
         except CodeNotFound:
-            flash="Couldn't find syntax element. Redirect back!"
+            flash=gettext("Code not found.")
         return render_template('new.haml', flash=flash)
 
     @route('/<key>/raw')
@@ -26,9 +26,8 @@ class UI(FlaskView,BaseController):
             hide = (True,False)[bool(request.form.get('hide') == 'true')]
             return redirect('/'+Code.new(request.form.get('code'), hide))
         except:
-            return render_template('new.haml', flash="""
-                Error while creating
-                syntax code stuff. Please retry.""")
+            return render_template('new.haml', 
+                    flash=gettext('Could not create the code.'))
 
     def __show(self, key):
       keylist=key.split('.')
@@ -39,10 +38,7 @@ class UI(FlaskView,BaseController):
         flash=False
       except:
         hcode = a.highlight('.txt')
-        flash="""
-                Sorry, but the Lexxer doesn't exist. Please enter only filename
-                suffix like .rb or .py
-        """
+        flash=gettext("Can't find lexxer.")
       return render_template('show.haml',
                 key=ckey[0],
                 flash=flash,

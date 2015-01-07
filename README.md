@@ -11,7 +11,7 @@ Features
 
 * Simple deployment.
 * Lightweight.
-* Realtime syntax highlighting based on prefix.
+* Realtime syntax highlighting based on language suffix.
 * Private and public posts.
 
 **Coming soon**
@@ -29,7 +29,9 @@ Requirements
 * flask
 * flask-restful
 * flask-classy
+* flask-babel
 * hamlish_jinja
+* (*gunicorn*)
 
 **Note**
 
@@ -41,6 +43,12 @@ You only need to open a python shell an type the following:
   lib.db.Database().create()
 ```
 
+You also need to compile the locales. This would do this for you.
+If it failes, please take a look at: https://github.com/mitsuhiko/flask-babel/issues/43
+
+```bash
+  pybabel compile -d translations
+```
 
 Structure
 ---------
@@ -84,6 +92,12 @@ You could start them with gunicorn.
 There is also an systemd service / socket file shipped.
 You only need to replace your WorkingDir and username. 
 It will start an GUnicorn on local:9000 or ::8000.
+
+If your using FreeBSD, there is also an rc.d script stored 
+in the 'system' folder. Please check it out.
+
+For your firstly checking this app, your could start as it is discribed
+in the following section.
 
 ```bash
 gunicorn app:app -w 1 -b 0.0.0.0:5000
