@@ -1,0 +1,16 @@
+{% haml %}
+
+-extends "layout.haml"
+
+-block main:
+  %h1 style="text-align: center"
+    {% trans %} enter url {% endtrans %}
+  %hr
+  %div.container
+    %form method="POST" action="/u/"
+      %hr
+      %input.form-control type="text" name="url"
+      %hr
+      %input.btn.btn-block.btn-default type="submit"
+    
+{% endhaml %}

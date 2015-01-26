@@ -1,7 +1,7 @@
 
 from controller.base import *
 
-class UI(FlaskView,BaseController):
+class PasteUtil(FlaskView,BaseController):
 
     def index(self):
         return render_template('index.haml')
@@ -13,18 +13,18 @@ class UI(FlaskView,BaseController):
                 return render_template('new.haml')
             elif key:
                 return self.__show(key)
-        except CodeNotFound:
+        except:
             flash=gettext("Code not found.")
         return render_template('new.haml', flash=flash)
 
     @route('/<key>/raw')
     def raw(self, key):
-        return Response(Code.find(key).code, mimetype="text/plain")
+        return Response(Paste.find(key).code, mimetype="text/plain")
     
     def post(self):
         try:
             hide = (True,False)[bool(request.form.get('hide') == 'true')]
-            return redirect('/'+Code.new(request.form.get('code'), hide))
+            return redirect('/'+Paste.new(request.form.get('code'), hide))
         except:
             return render_template('new.haml', 
                     flash=gettext('Could not create the code.'))
@@ -32,7 +32,7 @@ class UI(FlaskView,BaseController):
     def __show(self, key):
       keylist=key.split('.')
       ckey = ((key,'txt'),keylist)[bool(len(keylist)>1)]
-      a = Code.find(ckey[0])
+      a = Paste.find(ckey[0])
       try: 
         hcode = a.highlight('.'+ckey[1])
         flash=False

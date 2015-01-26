@@ -4,10 +4,14 @@ from flask.ext.restful import Api
 from flask.ext.babel import Babel
 from hamlish_jinja import HamlishTagExtension
 
-from lib.core import Code, Database
+import lib.db as db
+
+from lib.core import Paste
+from lib.url import Url
 from lib.config import Config
-from controller.ui import UI
-from controller.api import CodeAPI
+from controller.paste_util import PasteUtil
+from controller.url_shorten import UrlShorten
+from controller.api import *
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -15,17 +19,20 @@ app.debug = True
 app.jinja_env.add_extension(HamlishTagExtension)
 babel = Babel(app)
 
+db.Code().create()
+db.Url().create()
+
 conf = Config()
 conf.parse()
 
 app.config['BABEL_DEFAULT_LOCALE'] = conf.app_locale
 
-Api(app).add_resource(
-        CodeAPI, 
-        '/api/',
-        '/api/<key>')
+Api(app).add_resource(PasteAPI, '/pa/', '/pa/<key>')
+Api(app).add_resource(UrlAPI, '/ua/<key>')
 
-UI.register(app, route_base='/')
+
+PasteUtil.register(app, route_base='/')
+UrlShorten.register(app, route_base='/u/')
 
 
 if __name__ == '__main__':

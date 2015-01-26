@@ -50,44 +50,15 @@ If it failes, please take a look at: https://github.com/mitsuhiko/flask-babel/is
   pybabel compile -d translations
 ```
 
-UI Reference
-------------
-
-### route: /
-```
-  Show index page.
-```
-
-### route: /new
-```
-  Create new paste.
-```
-
-### route: /..key..[.suffix]
-```
-  Show paste if key is given.
-  [.suffix defines the filename, which should be highlighted]
-  Sample: 
-    hdauoqqfb.py => Python
-    hdauoqqfb.rb => Ruby
-
-```
-
-### route: /..key../raw
-```
-  Show paste if key is given in raw formate.
-  Mime-Type: text/plain
-```
-
 API Reference
 -------------
 
-### GET: /api/
+### GET: /pa/
 ```
   Returns all public pastes.
 ```
 
-### GET: /api/..key..
+### GET: /pa/..key..
 ```
   Return the paste if it could be found.
 ```
@@ -112,7 +83,7 @@ If key couldn't be found.
     "message": "Cound not found such key."
   }
 ```
-### POST: /api/
+### POST: /pa/
 ```
   Requested JSON fromatted data.
   Please check that your 'Content-Type' is set to 'application/json'.

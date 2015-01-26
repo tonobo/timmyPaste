@@ -1,4 +1,4 @@
-# German translations for PROJECT.
+# English translations for PROJECT.
 # Copyright (C) 2015 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2015-01-25 12:05+0100\n"
-"PO-Revision-Date: 2015-01-07 22:13+0100\n"
+"PO-Revision-Date: 2015-01-25 11:59+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: de <LL@li.org>\n"
+"Language-Team: en <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -19,19 +19,19 @@ msgstr ""
 
 #: controller/paste_util.py:17
 msgid "Code not found."
-msgstr "Konnte nichts anhand deines Schlüssels finden."
+msgstr "Paste not found!"
 
 #: controller/paste_util.py:30
 msgid "Could not create the code."
-msgstr "Konnte den Paste nicht anlegen."
+msgstr "Could not create the paste!"
 
 #: controller/paste_util.py:41
 msgid "Can't find lexxer."
-msgstr "Konnte den Dateitypen nicht finden."
+msgstr "Please check your file suffix!"
 
 #: controller/url_shorten.py:15
 msgid "Url not found."
-msgstr "Konnte nichts anhand deines Schlüssels finden."
+msgstr "Url not found!"
 
 #: controller/url_shorten.py:22
 #, python-format
@@ -39,21 +39,19 @@ msgid ""
 "\n"
 "                    Url redirection setup %(url)s\n"
 "                    Your short URL: http://%(app)s/u/%(key)s"
-msgstr ""
-" URL weiterleitung angelegt %(url)s <br/> Deine Kurz-URL, "
-"http://%(app)s/u/%(key)s"
+msgstr "Your short URL: http://%(app)s/u/%(key)s"
 
 #: templates/index.haml:1
 msgid "Salutation headline,"
-msgstr "Hey Dude,"
+msgstr "Hy Dude,"
 
 #: templates/index.haml:1
 msgid "Salutation text"
-msgstr "Betrunken etwas programmiert? Dann schmeiß das hier druff!"
+msgstr "You have programmed drunken? Let's paste it."
 
 #: templates/layout.haml:1
 msgid "App Title"
-msgstr "timmyPaste - Betrunken pasten ..."
+msgstr "timmyPaste"
 
 #: templates/layout.haml:1
 msgid "App Brand"
@@ -61,21 +59,21 @@ msgstr "timmyPaste"
 
 #: templates/layout.haml:1
 msgid "A new paste"
-msgstr "Neuer Paste ..."
+msgstr "Create new paste ..."
 
 #: templates/layout.haml:1
 msgid "New urlshorten"
-msgstr "URL kürzen ..."
+msgstr "URL shorten ..."
 
 #: templates/new.haml:1
 msgid " enter_code "
-msgstr "Bitte den Code unten eingeben."
+msgstr "Please enter some code."
 
 #: templates/show.haml:1
 msgid " key "
-msgstr "Schlüssel:"
+msgstr "Key"
 
 #: templates/urlshorten_new.haml:1
 msgid " enter url "
-msgstr "Bitte deinen URL eingeben."
+msgstr "Please enter any url."
 
