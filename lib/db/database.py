@@ -22,7 +22,7 @@ class Database:
         @typehint
         def drop(self) -> None:
             if self.table_exists():
-                cursor.self.__db.cursor()
+                cursor = self.__db.cursor()
                 cursor.execute('DROP TABLE %s' % (
                     self.__class__.__name__.lower(),))
                 self.__db.commit()
@@ -31,12 +31,17 @@ class Database:
         @typehint
         def create(self, sql: str) -> None:
             if not self.table_exists():
-                cursor = self.__db.cursor()
-                cursor.execute(sql)
+                self.__db.cursor().execute("PRAGMA foreign_keys = ON")
+                self.__db.cursor().execute(sql)
                 self.__db.commit()
 
         def conn(self):
             return self.__db
+        
+        @typehint
+        def sql(self, sql: str) -> None:
+            self.conn().cursor().execute(sql)
+            self.conn().commit()
 
         @abstractmethod
         def all(self):
@@ -46,9 +51,8 @@ class Database:
         def add(self):
             pass
 
-        @abstractmethod
         def delete(self):
-            pass
+            self.sql('DELETE FROM key WHERE key = ?', (key,))
 
         @typehint
         def table_exists(self) -> bool:

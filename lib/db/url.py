@@ -1,11 +1,9 @@
 from lib.db.database import *
+import lib.db.key
 from datetime import datetime
 import random
 import string
     
-class KeyNotFound(Exception):
-    pass
-
 class Url(Database.Methods):
 
     @typehint
@@ -14,18 +12,9 @@ class Url(Database.Methods):
             keylen: int,
             date: datetime = datetime.now()) -> None:
 
-            cursor = self.conn().cursor()
-            for i in range(0, 100):
-                key = "".join([random.choice(string.ascii_letters) for i in range(keylen)])
-                try:
-                    cursor.execute('''
-                        INSERT INTO url(url,date,key) VALUES (?,?,?)''',
-                        (url,date,key))
-                    self.conn().commit()
-                    return key
-                except:
-                    continue
-            raise Exception("Increase key length")
+            key_id = lib.db.key.Key().add("Url",keylen)
+            self.sql('INSERT INTO url(url,key_id) VALUES (?,?)',
+                        (url,key_id))
 
     def drop(self):
         super().drop()
@@ -34,30 +23,25 @@ class Url(Database.Methods):
         super().create('''
             CREATE TABLE url (
               id      INTEGER PRIMARY KEY AUTOINCREMENT,
-              date    TEXT NOT NULL,
-              url     TEXT NOT NULL,
-              key     TEXT NOT NULL UNIQUE
+              key_id  INTEGER NOT NULL REFERENCES key(id) ON DELETE CASCADE,
+              url     TEXT NOT NULL
             )''')
-
-    @typehint
-    def delete(self,key: str) -> None:
-            cursor = self.conn()
-            cursor.execute('DELETE FROM url WHERE key = ?', (key,))
-            self.conn().commit()
 
     @typehint
     def find(self,key: str) -> tuple:
             cursor = self.conn().cursor()
-            cursor.execute('SELECT * FROM url WHERE key = ?', (key,))
-            a = cursor.fetchone()
-            if a:
-                return a
-            raise KeyNotFound('Key invalid.')
+            cursor.execute('''
+                SELECT * 
+                FROM url 
+                WHERE key_id = (SELECT id FROM key WHERE key= ?)''', (key,))
+            return cursor.fetchone()
 
     @typehint
     def all(self) -> list:
             cursor = self.conn().cursor()
-            cursor.execute('SELECT * FROM url')
-            return [i[:-1]+(bool(i[-1]),) for i in cursor.fetchall()]
+            cursor.execute('''
+                SELECT id,(SELECT key FROM key WHERE id = key_id),url 
+                FROM url''')
+            return cursor.fetchall()
 
 Database.Methods.register(Url)

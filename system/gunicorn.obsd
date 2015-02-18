@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# PROVIDE: gunicorn
+# REQUIRE: LOGIN cleanvar
+# KEYWORD: shutdown
+
+. /etc/rc.d/rc.subr
+
+name=gunicorn
+appdir="/var/www/htdocs/timmyPaste"
+
+daemon="/usr/local/bin/${name}"
+daemon_user="www"
+
+args="-D --pidfile ${appdir}/tmp/${name}.pid \
+  --user ${daemon_user} \
+  --group ${daemon_user} \
+  --chdir ${appdir} \
+  --bind 0.0.0.0:5000 \
+  app:app "
+
+rc_start() {
+  su $daemon_user -c "${daemon} ${args}"
+}
+
+rc_stop() {
+  su $daemon_user -c "pkill ${name}"
+}
+
+rc_reload() {
+  su $daemon_user -c "pkill -HUP ${name}"
+}
+
+rc_check() {
+  su $daemon_user -c "pkill -0 ${name}"
+}
+
+rc_cmd "$1"
