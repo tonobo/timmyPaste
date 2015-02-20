@@ -10,11 +10,12 @@ class Code(Database.Methods):
     def add(self,
             code: str,
             is_private: bool,
-            keylen: int) -> None:
+            keylen: int) -> str:
 
             key_id = lib.db.key.Key().add("Code",keylen)
             self.sql('INSERT INTO code(code,key_id,private) VALUES (?,?,?)',
-                        (code,key_id,int(is_private)))
+                        (code,key_id[0],int(is_private),))
+            return key_id[3]
 
     def drop(self):
         super().drop()
@@ -32,10 +33,10 @@ class Code(Database.Methods):
     def find(self,key: str) -> tuple:
             cursor = self.conn().cursor()
             cursor.execute('''
-                SELECT id,?,code,private 
+                SELECT code.id,key,date,code,private 
                 FROM code 
-                WHERE key_id = (SELECT id FROM key WHERE key = ?)''', 
-                (key,key))
+                INNER JOIN key ON key = ?''', 
+                (key,))
             a = cursor.fetchone()
             return a[:-1]+(bool(a[-1]),)
 
@@ -43,10 +44,9 @@ class Code(Database.Methods):
     def all(self, private: bool) -> list:
             cursor = self.conn().cursor()
             cursor.execute('''
-                SELECT id,
-                    (SELECT key FROM key WHERE id = key_id),
-                    code,private 
+                SELECT code.id,key,date,code,private 
                 FROM code 
+                INNER JOIN key ON key_id = key.id
                 WHERE private = ?''', 
                     (private,))
             return [i[:-1]+(bool(i[-1]),) for i in cursor.fetchall()]

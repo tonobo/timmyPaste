@@ -14,7 +14,8 @@ class Url(Database.Methods):
 
             key_id = lib.db.key.Key().add("Url",keylen)
             self.sql('INSERT INTO url(url,key_id) VALUES (?,?)',
-                        (url,key_id))
+                        (url,key_id[0]))
+            return key_id[3]
 
     def drop(self):
         super().drop()
@@ -31,17 +32,18 @@ class Url(Database.Methods):
     def find(self,key: str) -> tuple:
             cursor = self.conn().cursor()
             cursor.execute('''
-                SELECT * 
-                FROM url 
-                WHERE key_id = (SELECT id FROM key WHERE key= ?)''', (key,))
+                SELECT url.id,date,url,key
+                FROM url
+                INNER JOIN key ON key = ?''', (key,))
             return cursor.fetchone()
 
     @typehint
     def all(self) -> list:
             cursor = self.conn().cursor()
             cursor.execute('''
-                SELECT id,(SELECT key FROM key WHERE id = key_id),url 
-                FROM url''')
+                SELECT url.id,date,url,key
+                FROM url
+                INNER JOIN key ON key_id = key.id''')
             return cursor.fetchall()
 
 Database.Methods.register(Url)

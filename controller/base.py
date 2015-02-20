@@ -3,7 +3,7 @@ from flask import Response, jsonify, render_template, url_for, request, redirect
 from flask.ext.restful import Resource
 from flask.ext.classy import FlaskView, route
 from flask.ext.babel import gettext, ngettext
-from lib.core import Paste,  PasteNotFound
+from lib.code import Code
 from lib.url import Url
 from lib.config import Config
 import json

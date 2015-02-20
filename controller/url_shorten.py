@@ -22,5 +22,5 @@ class UrlShorten(FlaskView,BaseController):
                 flash=gettext("""
                     Url redirection setup %(url)s
                     Your short URL: http://%(app)s/u/%(key)s""",
-                    url=url, key=key, app=config.app))
+                    url=url, key=key, app=self.config().url))
 

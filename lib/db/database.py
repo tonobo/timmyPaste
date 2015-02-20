@@ -31,16 +31,17 @@ class Database:
         @typehint
         def create(self, sql: str) -> None:
             if not self.table_exists():
-                self.__db.cursor().execute("PRAGMA foreign_keys = ON")
                 self.__db.cursor().execute(sql)
+                self.__db.cursor().execute("PRAGMA foreign_keys = ON")
+                self.__db.cursor().execute("PRAGMA synchronous = OFF")
+                self.__db.cursor().execute("PRAGMA journal_mode = MEMORY")
                 self.__db.commit()
 
         def conn(self):
             return self.__db
-        
-        @typehint
-        def sql(self, sql: str) -> None:
-            self.conn().cursor().execute(sql)
+       
+        def sql(self, *args) -> None:
+            self.conn().cursor().execute(*args)
             self.conn().commit()
 
         @abstractmethod

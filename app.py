@@ -4,11 +4,10 @@ from flask.ext.restful import Api
 from flask.ext.babel import Babel
 from hamlish_jinja import HamlishTagExtension
 
-import lib.db as db
+from lib.db.key import Key
 
-from lib.core import Paste
-from lib.url import Url
 from lib.config import Config
+
 from controller.paste_util import PasteUtil
 from controller.url_shorten import UrlShorten
 from controller.api import *
@@ -18,9 +17,6 @@ app.config.from_object(__name__)
 app.debug = True
 app.jinja_env.add_extension(HamlishTagExtension)
 babel = Babel(app)
-
-db.Code().create()
-db.Url().create()
 
 conf = Config()
 conf.parse()

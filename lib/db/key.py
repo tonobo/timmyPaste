@@ -15,7 +15,7 @@ class Key(Database.Methods):
     def add(self,
             kind: str,
             keylen: int,
-            date: datetime = datetime.now()) -> str(int):
+            date: datetime = datetime.now()) -> tuple:
 
             cursor = self.conn().cursor()
             for i in range(0, 100):
@@ -27,7 +27,7 @@ class Key(Database.Methods):
                         INSERT INTO key(kind,date,key) VALUES (?,?,?)''',
                         (kind,date,key,))
                     self.conn().commit()
-                    return str(self.find(key)[0])
+                    return self.find(key)
                 except sqlite3.IntegrityError:
                     pass
                 except sqlite3.OperationalError:
@@ -37,8 +37,8 @@ class Key(Database.Methods):
     @typehint
     def get_klazz(self,key: str):
         klazz = self.find(key)[2]
-        exec("import lib.db.{0}".format(klazz.lower()))
-        return eval("lib.db.{0}().find(key)".format(klazz))
+        exec("import lib.{0}".format(klazz.lower()))
+        return eval("lib.{0}.{1}.find(key)".format(klazz.lower(),klazz))
 
     def drop(self):
         super().drop()
@@ -58,7 +58,7 @@ class Key(Database.Methods):
             cursor.execute('SELECT * FROM key WHERE key = ?', (key,))
             a = cursor.fetchone()
             if a:
-                return a[:-1]+(bool(a[-1]),)
+                return a
             raise KeyNotFound('Invalid key was given.')
     
     @typehint

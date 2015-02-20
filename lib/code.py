@@ -6,17 +6,14 @@ from pygments.formatters import HtmlFormatter
 import json
 from lib.config import Config
 
-class PasteNotFound(Exception):
-        pass
-
-class Paste:
+class Code:
 
         def __init__(self, args):
                 self.code_id = args[0]
-                self.date = args[1]
-                self.code = args[2]
+                self.key = args[1]
+                self.date = args[2]
+                self.code = args[3]
                 self.private = args[4]
-                self.key = args[3]
 
         def drop(self):
                 db.Code().delete(self.code_id)
@@ -40,13 +37,13 @@ class Paste:
         def all(self, private=False):
             a = list()
             for row in db.Code().all(private):
-                    a.append(Paste(list(row)))
+                    a.append(Code(list(row)))
             return a
         
         @classmethod
         def all_json(self,private=False):
             a = list()
-            for entry in Paste.all(private):
+            for entry in Code.all(private):
                 a.append(entry.json(False))
             return json.dumps(a, sort_keys=True, indent=4)
 
@@ -62,5 +59,5 @@ class Paste:
         @typehint
         def find(self,key: str):
             code = db.Code().find(key)
-            return Paste(code)
+            return Code(code)
 

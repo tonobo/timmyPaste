@@ -3,9 +3,6 @@ from lib.generic import typehint
 import json
 from lib.config import Config
 
-class UrlNotFound(Exception):
-        pass
-
 class Url:
 
         def __init__(self, args):
