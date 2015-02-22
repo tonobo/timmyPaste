@@ -20,7 +20,7 @@ class Key(Database.Methods):
             cursor = self.conn().cursor()
             for i in range(0, 100):
                 key = "".join([random.choice(
-                    string.ascii_letters+"0123456789_-:([]{})!"
+                    string.ascii_letters+"0123456789_-:"
                     ) for i in range(keylen)])
                 try:
                     cursor.execute('''

@@ -26,8 +26,20 @@ app.config['BABEL_DEFAULT_LOCALE'] = conf.app_locale
 Api(app).add_resource(PasteAPI, '/pa/', '/pa/<key>')
 Api(app).add_resource(UrlAPI, '/ua/<key>')
 
+@app.route('/new')
+def render_new():
+    return render_template('new.haml')
 
-PasteUtil.register(app, route_base='/')
+@app.route('/<key>')
+def redirect_site(key):
+    try: 
+        a=Key().find(key)
+        return redirect('/%s/%s' % (a[2][0].lower(),key,))
+    except Key.KeyNotFound:
+        abort(404)
+
+
+PasteUtil.register(app, route_base='/c/')
 UrlShorten.register(app, route_base='/u/')
 
 

@@ -3,25 +3,36 @@
 -extends "layout.haml"
 
 -block main:
-  %h1 style="text-align: center"
-    {% trans %} enter_code {% endtrans %}
+  %div.container style="border: 1px solid black; border-radius: 10px"
+    %h2 style="text-align: center"
+      {% trans %} enter_code {% endtrans %}
+    %div
+      %hr
+      %form method="POST" action="/c/"
+        %div.container
+          %div.col-xs-6
+            %div.input-group
+              %span.input-group-addon
+                %input type="radio" name="hide" value="false"
+              %input.disabled.form-control type="text" readonly="" value="Private"
+          %div.col-xs-6
+            %div.input-group
+              %span.input-group-addon
+                %input type="radio" name="hide" value="true" checked=""
+              %input.disabled.form-control type="text" readonly="" value="Public"
+        %hr
+        %textarea.form-control oninput="textAreaAdjust(this)" style="overflow:hidden" name="code"
+        %hr
+        %input.btn.btn-block.btn-default type="submit"
   %hr
-  %div.container
-    %form method="POST" action="/"
-      %div.container
-        %div.col-md-6
-          %div.input-group
-            %span.input-group-addon
-              %input type="radio" name="hide" value="false"
-            %input.disabled.form-control type="text" readonly="" value="Private"
-        %div.col-md-6
-          %div.input-group
-            %span.input-group-addon
-              %input type="radio" name="hide" value="true" checked=""
-            %input.disabled.form-control type="text" readonly="" value="Public"
+  %div.container style="border: 1px solid black; border-radius: 10px"
+    %h2 style="text-align: center"
+      {% trans %} enter url {% endtrans %}
+    %div
       %hr
-      %textarea.form-control oninput="textAreaAdjust(this)" style="overflow:hidden" name="code"
-      %hr
-      %input.btn.btn-block.btn-default type="submit"
+      %form method="POST" action="/u/"
+        %input.form-control type="text" name="url"
+        %hr
+        %input.btn.btn-block.btn-default type="submit"
     
 {% endhaml %}

@@ -6,13 +6,10 @@ class PasteUtil(FlaskView,BaseController):
     def index(self):
         return render_template('index.haml')
 
-    def get(self, key=None):
+    def get(self, key):
         try: 
             flash=None
-            if key == 'new':
-                return render_template('new.haml')
-            elif key:
-                return self.__show(key)
+            return self.__show(key)
         except:
             flash=gettext("Code not found.")
         return render_template('new.haml', flash=flash)
@@ -22,12 +19,19 @@ class PasteUtil(FlaskView,BaseController):
         return Response(Code.find(key).code, mimetype="text/plain")
     
     def post(self):
-        #try:
-        hide = (True,False)[bool(request.form.get('hide') == 'true')]
-        return redirect('/'+Code.new(request.form.get('code'), hide))
-        #except:
-        #    return render_template('new.haml', 
-        #            flash=gettext('Could not create the code.'))
+        if len(request.form) > 1:
+            code = request.form.get('code')
+            hide = (True,False)[bool(request.form.get('hide') == 'true')]
+            return redirect('/'+Code.new(code, hide))
+        elif request.json: 
+            code = request.json.get('code')
+            hide = request.json.get('hide')
+            return redirect('/ca/'+Code.new(code,hide))
+        else:
+            return Response("http://%s/%s\n" % (self.config().url,
+                Code.new(list(request.form)[0],
+                    self.config().paste_default_hidden)), 
+                mimetype="text/plain")
 
     def __show(self, key):
       keylist=key.split('.')
@@ -43,4 +47,4 @@ class PasteUtil(FlaskView,BaseController):
                 key=ckey[0],
                 flash=flash,
                 code=hcode)    
-    
+   

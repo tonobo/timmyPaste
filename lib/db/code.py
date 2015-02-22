@@ -34,8 +34,9 @@ class Code(Database.Methods):
             cursor = self.conn().cursor()
             cursor.execute('''
                 SELECT code.id,key,date,code,private 
-                FROM code 
-                INNER JOIN key ON key = ?''', 
+                FROM code
+                INNER JOIN key ON key_id = key.id
+                WHERE key = ?''', 
                 (key,))
             a = cursor.fetchone()
             return a[:-1]+(bool(a[-1]),)

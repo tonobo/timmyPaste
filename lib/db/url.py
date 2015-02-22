@@ -34,7 +34,8 @@ class Url(Database.Methods):
             cursor.execute('''
                 SELECT url.id,date,url,key
                 FROM url
-                INNER JOIN key ON key = ?''', (key,))
+                INNER JOIN key ON key_id = key.id
+                WHERE key = ?''', (key,))
             return cursor.fetchone()
 
     @typehint
