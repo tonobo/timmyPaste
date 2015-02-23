@@ -1,5 +1,6 @@
 
 from controller.base import *
+import re
 
 class UrlShorten(FlaskView,BaseController):
 
@@ -17,10 +18,11 @@ class UrlShorten(FlaskView,BaseController):
 
     def post(self):
         url = request.form.get('url')
-        key = Url.new(url)
-        return render_template('urlshorten_new.haml', 
+        u = url if re.match('^(https?|ftps?|rsync)://',url) else 'http://'+url
+        key = Url.new(u)
+        return render_template('new.haml', 
                 flash=gettext("""
                     Url redirection setup %(url)s
-                    Your short URL: http://%(app)s/u/%(key)s""",
+                    Your short URL: http://%(app)s/%(key)s""",
                     url=url, key=key, app=self.config().url))
 
