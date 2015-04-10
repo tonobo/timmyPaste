@@ -20,7 +20,7 @@ class Code:
 
         def highlight(self,filename):
                 lex = get_lexer_for_filename(filename)
-                return highlight(self.code, lex, HtmlFormatter())
+                return highlight(self.code, lex, HtmlFormatter(linenos=1))
        
         def json(self, dump=True):
             h={
