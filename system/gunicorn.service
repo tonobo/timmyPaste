@@ -1,17 +1,15 @@
 [Unit]
 Description=Syntax gunicorn daemon
-Requires=gunicorn.socket
 After=network.target
 
 [Service]
 PIDFile=/tmp/gunicorn_flask.pid
-User=timmy
-Group=timmy
-WorkingDirectory=/home/timmy/timmySyntax
-ExecStart=/usr/bin/gunicorn --pid /tmp/gunicorn_flask.pid app:app
+User=pastebin
+Group=pastebin
+WorkingDirectory=/srv/http/pastebin/
+ExecStart=/usr/bin/scl enable python33 -- gunicorn --log-syslog --access-logfile access.log --pid /tmp/gunicorn_flask.pid app:app
 ExecReload=/usr/bin/kill -s HUP $MAINPID
 ExecStop=/usr/bin/kill -s TERM $MAINPID
-PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target

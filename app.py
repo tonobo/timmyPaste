@@ -26,8 +26,8 @@ conf.parse()
 app.config['SECRET_KEY'] = 'PdqXX7K5MTfpAK635&$&d2NuYB014&P7Emybbk8DWj&$COA8KzDn9N%9mml58TSWu:667'
 app.config['BABEL_DEFAULT_LOCALE'] = conf.app_locale
 
-Api(app).add_resource(PasteAPI, '/pa/', '/pa/<key>')
-Api(app).add_resource(UrlAPI, '/ua/<key>')
+Api(app).add_resource(PasteAPI, '%s/pa/' % (conf.path_prefix,), '%s/pa/<key>' % (conf.path_prefix,))
+Api(app).add_resource(UrlAPI, '%s/ua/<key>' % (conf.path_prefix,))
 
 @app.before_request
 def csrf_protect():
@@ -43,27 +43,27 @@ def generate_csrf_token():
     return session['_csrf_token']
 
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
+app.jinja_env.globals['path_prefix'] = conf.path_prefix
 
 
-@app.route('/new')
+@app.route('%s/' % (conf.path_prefix,))
 def render_new():
     return render_template('new.haml')
 
-@app.route('/')
-@app.route('/<key>')
+@app.route('%s/<key>' % (conf.path_prefix,))
 def redirect_site(key = None):
     try: 
         if key:
             keys = re.findall('([^\.]+)',key)
             a=Key().find(keys[0])
-            return redirect('/%s/%s' % (a[2][0].lower(),key,))
+            return redirect('%s/%s/%s' % (conf.path_prefix, a[2][0].lower(),key,))
         return render_template('index.haml')
     except:
         abort(404)
 
 
-PasteUtil.register(app, route_base='/c/')
-UrlShorten.register(app, route_base='/u/')
+PasteUtil.register(app, route_base='%s/c/' % (conf.path_prefix,))
+UrlShorten.register(app, route_base='%s/u/' % (conf.path_prefix,))
 
 
 if __name__ == '__main__':

@@ -45,15 +45,15 @@ msgstr ""
 
 #: templates/index.haml:1
 msgid "Salutation headline,"
-msgstr "Hey Dude,"
+msgstr "Willkommen,"
 
 #: templates/index.haml:1
 msgid "Salutation text"
-msgstr "Betrunken etwas programmiert? Dann schmeiß das hier druff!"
+msgstr "Poste Codeschnipsel und anderen Text."
 
 #: templates/layout.haml:1
 msgid "App Title"
-msgstr "timmyPaste - Betrunken pasten ..."
+msgstr "Pastebin"
 
 #: templates/layout.haml:1
 msgid "App Brand"

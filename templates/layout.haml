@@ -1,8 +1,8 @@
 {% haml %}
 %html
   %head
-    %link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"
-    %link href="/static/style.css" rel="stylesheet"
+    %link href="{{ path_prefix }}/static/bootstrap.css" rel="stylesheet"
+    %link href="{{ path_prefix }}/static/style.css" rel="stylesheet"
     %title
       {{ gettext('App Title') }}
   %body
@@ -15,10 +15,10 @@
             %span.icon.bar
             %span.icon.bar
             %span.icon.bar
-          %a.navbar-brand href="/" 
+          %a.navbar-brand href="{{ path_prefix }}" 
             {{ gettext('App Brand') }}
         %div#navbar.navbar-collapse.collapse
-          %a.btn.btn-default.pull-right href="/new" style="margin-top: 10px"
+          %a.btn.btn-default.pull-right href="{{ path_prefix }}/" style="margin-top: 10px"
             {{ gettext('New') }}
 
     {% if flash %} 

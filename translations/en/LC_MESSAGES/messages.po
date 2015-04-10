@@ -43,11 +43,11 @@ msgstr "Your short URL: http://%(app)s/u/%(key)s"
 
 #: templates/index.haml:1
 msgid "Salutation headline,"
-msgstr "Hy Dude,"
+msgstr "Welcome,"
 
 #: templates/index.haml:1
 msgid "Salutation text"
-msgstr "You have programmed drunken? Let's paste it."
+msgstr "Paste your code snippets and other text."
 
 #: templates/layout.haml:1
 msgid "App Title"

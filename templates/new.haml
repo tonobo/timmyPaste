@@ -8,7 +8,7 @@
       {% trans %} enter_code {% endtrans %}
     %div
       %hr
-      %form method="POST" action="/c/"
+      %form method="POST" action="{{ path_prefix }}/c/"
         %input name="_csrf_token" type="hidden" value="{{ csrf_token() }}"
         %div.container
           %div.col-xs-6
@@ -22,7 +22,7 @@
                 %input type="radio" name="hide" value="true" checked=""
               %input.disabled.form-control type="text" readonly="" value="Public"
         %hr
-        %textarea.form-control oninput="textAreaAdjust(this)" style="overflow:hidden" name="code"
+        %textarea.form-control oninput="textAreaAdjust(this)" style="overflow:hidden" name="code" rows=20
         %hr
         %input.btn.btn-block.btn-default type="submit"
   %hr
@@ -31,7 +31,7 @@
       {% trans %} enter url {% endtrans %}
     %div
       %hr
-      %form method="POST" action="/u/"
+      %form method="POST" action="{{ path_prefix }}/u/"
         %input name="_csrf_token" type="hidden" value="{{ csrf_token() }}"
         %input.form-control type="text" name="url"
         %hr

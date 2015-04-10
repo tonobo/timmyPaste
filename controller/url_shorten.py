@@ -23,6 +23,6 @@ class UrlShorten(FlaskView,BaseController):
         return render_template('new.haml', 
                 flash=gettext("""
                     Url redirection setup %(url)s
-                    Your short URL: http://%(app)s/%(key)s""",
-                    url=url, key=key, app=self.config().url))
+                    Your short URL: http://%(app)s%(path_prefix)s/%(key)s""",
+                    url=url, key=key, app=self.config().url, path_prefix=self.config().path_prefix))
 

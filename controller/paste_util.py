@@ -22,11 +22,11 @@ class PasteUtil(FlaskView,BaseController):
         if len(request.form) > 1:
             code = request.form.get('code')
             hide = (True,False)[bool(request.form.get('hide') == 'true')]
-            return redirect('/'+Code.new(code, hide))
+            return redirect('%s/%s' % (self.config().path_prefix, Code.new(code, hide),))
         elif request.json: 
             code = request.json.get('code')
             hide = request.json.get('hide')
-            return redirect('/ca/'+Code.new(code,hide))
+            return redirect('%s/ca/%s' % (self.config().path_prefix, Code.new(code,hide),))
         else:
             return Response("http://%s/%s\n" % (self.config().url,
                 Code.new(list(request.form)[0],
@@ -35,7 +35,7 @@ class PasteUtil(FlaskView,BaseController):
 
     def __show(self, key):
       keylist=key.split('.')
-      ckey = ((key,'txt'),keylist)[bool(len(keylist)>1)]
+      ckey = ((key,'rb'),keylist)[bool(len(keylist)>1)]
       a = Code.find(ckey[0])
       try: 
         hcode = a.highlight('.'+ckey[1])

@@ -14,5 +14,6 @@ class Config:
         self.app_locale =     self.c['App']['locale']
         self.db_name =        self.c['App']['db_name']
         self.url =            self.c['App']['url']
+        self.path_prefix =    self.c['App']['path_prefix']
             
 
